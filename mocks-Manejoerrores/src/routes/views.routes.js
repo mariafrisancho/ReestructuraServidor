@@ -43,7 +43,8 @@ router.get("/signup",(req,res)=>{
 
 // endPoint registrar logearse usuario
 router.get("/login",(req,res)=>{
-    res.render("loginView");
+    //res.render("loginView");
+    res.render("login");
 });
 
 router.get("/profile",(req,res)=>{

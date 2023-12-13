@@ -10,7 +10,7 @@ export class TicketManagerMongo{
             const result = await this.model.create(ticketInfo);
             return result;
         } catch (error) {
-            console.log("createcreateTickets",error.message);
+            logger.error("createcreateTickets",error.message);
             throw new Error("No se pudo crear el ticket");
         }
     };

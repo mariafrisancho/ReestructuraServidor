@@ -1,4 +1,5 @@
 import { productsModel } from "./models/products.model.js";
+import { logger } from "../../../helpers/logger.js";
 
 export class ProductsManagerMongo{
 
@@ -12,7 +13,7 @@ export class ProductsManagerMongo{
         return result;
         
     } catch (error) {
-        console.log("getProductsPaginate",error.message);
+        logger.error("getProductsPaginate",error.message);
         throw new Error("No se pudo crear el reporte");
         
     }
@@ -25,7 +26,7 @@ export class ProductsManagerMongo{
             const result = await this.model.create(productInfo);
             return result;
         } catch (error) {
-            console.log("createProduct",error.message);
+            logger.error("createProduct",error.message);
             throw new Error("No se pudo crear el producto");
         }
     };
@@ -35,7 +36,7 @@ export class ProductsManagerMongo{
             const result = await this.model.find();
             return result;
         } catch (error) {
-            console.log("getProducts",error.message);
+            logger.error("getProducts",error.message);
             throw new Error("No se pudo obtener el listado de productos");
         }
     };
@@ -46,7 +47,7 @@ export class ProductsManagerMongo{
             const result = await this.model.findById(productId).lean();
             return result;
         } catch (error) {
-            console.log("getProductById",error.message);
+            logger.error("getProductById",error.message);
             throw new Error("No se pudo obtener el producto");
         }
     };
@@ -60,7 +61,7 @@ export class ProductsManagerMongo{
             }
             return result;
         } catch (error) {
-            console.log("updateProduct",error.message);
+            logger.error("updateProduct",error.message);
             throw new Error("No se pudo actualizar el producto");
         }
     };
@@ -73,7 +74,7 @@ export class ProductsManagerMongo{
             }
             return result;
         } catch (error) {
-            console.log("deleteProduct",error.message);
+            logger.errorg("deleteProduct",error.message);
             throw new Error("No se pudo eliminar el producto");
         }
     };

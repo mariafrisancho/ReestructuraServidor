@@ -1,5 +1,8 @@
 export const isAuth = (req,res,next)=>{
     console.log("middleware");
+    if(!req.user){
+        return res.json({status:"error", message:"Debes estar autenticado"});
+    }
     next();
 };
 

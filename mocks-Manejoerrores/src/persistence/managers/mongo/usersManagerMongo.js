@@ -1,4 +1,5 @@
 import { usersModel } from "./models/users.model.js";
+import { logger } from "../../../helpers/logger.js";
 
 export class UsersManagerMongo{
 
@@ -17,7 +18,7 @@ export class UsersManagerMongo{
        
             return result;
         } catch (error) {
-            console.log("getUserbyid",error.message);
+            logger.error("getUserbyid",error.message);
             throw new Error("Se produjo un error obteniendo un usuario");
         }
     };
@@ -29,7 +30,7 @@ export class UsersManagerMongo{
                        
                 return result;
             } catch (error) {
-                console.log("getUserbyEmail",error.message);
+                logger.error("getUserbyEmail",error.message);
                 throw new Error("Se produjo un error obteniendo un usuario");
             }
         };
@@ -47,7 +48,7 @@ export class UsersManagerMongo{
           
             
         } catch (error) {
-            console.log("signupUser",error.message);
+            logger.error("signupUser",error.message);
             throw new Error("No se pudo crear el usuario");
             
         }
@@ -64,7 +65,7 @@ export class UsersManagerMongo{
            return user;
             
         } catch (error) {
-            console.log("loginUser",error.message);
+            logger.error("loginUser",error.message);
             throw new Error("No se pudo iniciar session para el usuario");
             
         }

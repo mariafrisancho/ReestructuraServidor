@@ -1,6 +1,7 @@
 import { CartsService } from "../service/carts.service.js";
 import {ProductsService} from"../service/products.service.js";
 import {v4 as uuidv4} from 'uuid';
+import {logger} from "../helpers/logger.js";
 
 
     // arreglo de productos para controller addProducts
@@ -189,8 +190,8 @@ export class cartsController {
                     }
                 };
 
-                console.log("ticketProducts",ticketProducts);
-                console.log("rejectedProducts",rejectedProducts);
+                logger.informativo("ticketProducts",ticketProducts);
+                logger.informativo("rejectedProducts",rejectedProducts);
              
             // obtener el total del tickete 
                for(let i=0;i<ticketProducts.length;i++){
@@ -205,7 +206,7 @@ export class cartsController {
                     amount:totalTicket,
                     purchaser:req.user.email
                 };
-                console.log("newTicket",newTicket);
+                logger.informativo("newTicket",newTicket);
            
 
                 //crear el ticket en base de datos.

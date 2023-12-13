@@ -1,6 +1,7 @@
 import passport from "passport";
 import localStrategy from "passport-local";
 import { createHash,inValidPassword } from "../utils.js";
+import {logger} from "../helpers/logger.js";
 
 import { UserService } from "../service/user.service.js";
 import { config } from "./config.js";
@@ -38,7 +39,8 @@ export const initializePassport=()=>{
                     password:createHash(password)
                     
                 };
-                console.log(newUser);
+            
+                logger.informativo(newUser);
                 const userCreated= await UserService.signupUser(newUser);
                 return done(null,userCreated);
 
@@ -103,7 +105,7 @@ export const initializePassport=()=>{
         },
         async(accessToken,refreshToken,profile,done)=>{
             try {
-                console.log("profile",profile);
+                logger.informativo("profile",profile);
                 //const user= await usersModel.findOne({email:profile.username});
                 const user= await UserService.getUserbyEmail(profile.username);
                 if(user) {
@@ -119,7 +121,7 @@ export const initializePassport=()=>{
                     password:"1234"
                     
                 };
-                console.log(newUser);
+                logger.informativo(newUser);
                 const userCreated= await UserService.signupUser(newUser);
                 return done(null,userCreated);
             

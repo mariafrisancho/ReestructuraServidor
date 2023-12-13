@@ -21,11 +21,13 @@ import { mockingproductsRouter } from "./routes/mockingproducts.routes.js";
 
 import { config } from "./config/config.js";
 import { ProductsService } from "./service/products.service.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { logger } from "./helpers/logger.js";
 
 const port = 8080;
 const app = express();
 
-const httpServer=app.listen(port,()=>console.log(`servidor ejecutandose en el puerto  ${port}`));
+const httpServer=app.listen(port,()=>logger.informativo(`servidor ejecutandose en el puerto  ${port}`));
 // servidor de websocket
 const io=new Server(httpServer);
 
@@ -72,6 +74,7 @@ app.use("/api/sessions",sesionsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/mockingproducts", mockingproductsRouter);
+app.use(errorHandler);
 
 // socket server
 io.on("connection",async(socket)=>{
