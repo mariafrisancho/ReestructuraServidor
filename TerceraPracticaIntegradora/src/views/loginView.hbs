@@ -1,0 +1,26 @@
+
+<h1>Pagina de Login</h1>
+
+<p style="color: green;">{{message}}</p>
+<p style="color: red;">{{error}}</p>
+
+<form action ="/api/sessions/login"  method="post" >
+
+    <input type="email" name="email" placeholder="Tu Correo"/>
+    <br/><br/>
+    <input type="password" name="password" placeholder="Tu Contraseña"/>
+    <br/><br/>
+    <button>Iniciar sesión</button>
+</form>
+<hr>
+<a href="/forgot-password">
+olvide mi contraseña
+</a>
+
+<hr>
+<a href="/api/sessions/signup-github">
+<button>
+     Iniciar con Github
+</button>
+
+</a>
