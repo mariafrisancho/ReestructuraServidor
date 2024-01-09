@@ -13,9 +13,33 @@ paths:
                 type: array
                 items:
                   $ref: "#components/schemas/products"
-
         "500":
           description: Hubo un problema en el servidor
+    post:
+      summary: Endpoint para crear un producto
+      tags:
+        - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createUpdateProducts"
+      responses:
+        "200":
+          description:  creacion del producto exitoso
+          content:
+           application/json:
+            schema:
+              $ref: "#components/requestBodies/createUpdateProducts"
+        "401":
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorAuthorization"
+        "500":
+          description: fallo del servidor        
     put:
       summary: actualizar producto
       tags:
@@ -24,7 +48,7 @@ paths:
         - name: productId
           in: path
           required: true
-          description:  El id del producto aactualizar
+          description:  El id del producto actualizar
           schema:
              $type: string
       requestBody:
@@ -42,7 +66,7 @@ paths:
                 $ref: "#components/schemas/UpdateSuccess"
         "500":
           description: Hubo un problema en el servidor
-
+    
 components:
   schemas:
     products:
@@ -94,7 +118,33 @@ components:
       example:
         status: success
         message: Product updated
-
+    SuccessCreateProduct:
+      type: object
+      properties:
+        status:
+          type: string
+        result:
+          type: object
+      example:
+        status: "success"
+        result:
+           title: Vino seco
+           description: Vinos Seco variedad ,cepa Negra Criolla
+           price: 100
+           status: true
+           code: VINSECOT01
+           category: Vino
+           stock: 10
+    ErrorAuthorization:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: error
+        message: No tienes accesso
   requestBodies:
     createUpdateProducts:
       type: object

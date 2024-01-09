@@ -1,0 +1,91 @@
+paths:
+  /api/carts/:
+    get:
+      summary: Obtener todos los carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Los carritos  se obtuvieron correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/carts"
+        "500":
+          description: Hubo un problema en el servidor
+  /api/carts/{cid} /purchase:
+    post:
+      summary: Endpoint para finalizar la compra del carrito
+      tags:
+         - Carts
+      parameters:
+        - name: cid
+          in : path
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: creacion de la orden de compra
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/SuccessPurchaseCart"
+        "401":
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorAuthorization"
+        "500":
+          description: fallo del servidor
+          
+components:
+  schemas:
+    carts:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id generado por la base de datos (requerido*)
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type : ObjectId
+                description: id del producto
+              quantity:
+                type : number
+                description: Cantidad del producto
+             
+      example:
+        _id: ObjectId("65669211c312940bbd6bd377")
+        products:
+            productId: ObjectId("65289720dd11c3cdeabf1772")
+            quantity: 1
+    SuccessPurchaseCart:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        rejectedProducts:
+          type: array
+      example:
+        status: "success"
+        message: "Compra realizada, algunos productos no se pudieron comprar por falta de stock"
+        rejectedProducts: []
+    ErrorAuthorization:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: error
+        message: No tienes accesso
