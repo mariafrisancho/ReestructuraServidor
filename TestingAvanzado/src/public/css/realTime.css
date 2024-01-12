@@ -1,0 +1,38 @@
+.title {
+    color:blue;
+   }
+   .form {
+       position: relative;
+       width: 750px;
+       height: 350px;
+       margin: 0 auto;
+       padding: 1em;
+       box-sizing: border-box;
+      
+     
+       /* creamos nuestra malla (grid) */
+       display: grid;
+       grid-gap: 20px;
+       grid-template-columns: repeat(2, 1fr);
+       grid-template-rows: 10em 1em 1em 1em;
+     }
+     h2 {
+       font:
+         1em "typewriter",
+         monospace;
+       align-self: end;
+     }
+     button {
+       padding: 5px;
+       font: bold 0.6em sans-serif;
+       border: 2px solid #333;
+       border-radius: 5px;
+       background: none;
+       cursor: pointer;
+   
+     }
+     label {
+       font:
+         0.8em "typewriter",
+         sans-serif;
+     }

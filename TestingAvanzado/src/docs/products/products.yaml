@@ -1,0 +1,185 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Productos
+      responses:
+        "200":
+          description: Los productos se obtuvieron correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/products"
+        "500":
+          description: Hubo un problema en el servidor
+    post:
+      summary: Endpoint para crear un producto
+      tags:
+        - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createUpdateProducts"
+      responses:
+        "200":
+          description:  creacion del producto exitoso
+          content:
+           application/json:
+            schema:
+              $ref: "#components/requestBodies/createUpdateProducts"
+        "401":
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/ErrorAuthorization"
+        "500":
+          description: fallo del servidor        
+    put:
+      summary: actualizar producto
+      tags:
+        - Productos
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description:  El id del producto actualizar
+          schema:
+             $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createUpdateProducts"
+      responses:
+        "200":
+          description: Se actualizo correctamente el producto
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/UpdateSuccess"
+        "500":
+          description: Hubo un problema en el servidor
+    
+components:
+  schemas:
+    products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id generado por la base de datos (requerido*)
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion detallada del producto
+        price:
+          type: number
+          description: precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        code:
+          type: Boolean
+          description: codigo del producto no debe repetirse
+        category:
+          type: string
+          description: categoria del producto ["Vino","Pisco","Aguardiente"]
+        stock:
+          type: number
+          description: stock del producto
+        thumbnail:
+          type: string
+          description: ruta donde se guarda las imagenes del producto
+      example:
+        _id: ObjectId("$hjsg892778234sd")
+        title: Vino seco
+        description: Vinos Seco variedad ,cepa Negra Criolla
+        price: 100
+        status: true
+        code: VINSECOT01
+        category: Vino
+        stock: 10
+    UpdateSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: success
+        message: Product updated
+    SuccessCreateProduct:
+      type: object
+      properties:
+        status:
+          type: string
+        result:
+          type: object
+      example:
+        status: "success"
+        result:
+           title: Vino seco
+           description: Vinos Seco variedad ,cepa Negra Criolla
+           price: 100
+           status: true
+           code: VINSECOT01
+           category: Vino
+           stock: 10
+    ErrorAuthorization:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: error
+        message: No tienes accesso
+  requestBodies:
+    createUpdateProducts:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion detallada del producto
+        price:
+          type: number
+          description: precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        code:
+          type: Boolean
+          description: codigo del producto no debe repetirse
+        category:
+          type: string
+          description: categoria del producto ["Vino","Pisco","Aguardiente"]
+        stock:
+          type: number
+          description: stock del producto
+        thumbnail:
+          type: string
+          description: ruta donde se guarda las imagenes del producto
+      example:
+        title: Vino seco
+        description: Vinos Seco variedad ,cepa Negra Criolla
+        price: 100
+        status: true
+        code: VINSECOT01
+        category: Vino
+        stock: 10
+
+
